@@ -11,9 +11,6 @@ template <class T1, class T2> class List
 		T2 val;	
 		List *next;
 
-		List() {
-		}
-
 		List(T1 key, T2 val) {
 			this->key = key;
 			this->val = val;
@@ -38,8 +35,7 @@ template <class T1, class T2> class HashMap
 				indices[index] = node;
 			}
 			else {
-				List<T1, T2> *pointer = new List<T1, T2>();
-				pointer = indices[index];
+				List<T1, T2> *pointer = indices[index];
 				if(pointer->key == key) {
 					pointer->val = val;
 					return;
@@ -88,8 +84,7 @@ template <class T1, class T2> class HashMap
 						flag = 1;
 						cout << i << " --> ";
 
-						List<T1, T2> *pointer = new List<T1, T2>();
-						pointer = indices[i];
+						List<T1, T2> *pointer = indices[i];
 
 						while(pointer != NULL) {
 							cout << "(" << pointer->key << "," << pointer->val << ") ";
@@ -116,8 +111,7 @@ template <class T1, class T2> class HashMap
 				return;
 			}	
 
-			List<T1, T2> *pointer = new List<T1, T2>();
-			pointer = indices[index];
+			List<T1, T2> *pointer = indices[index];
 
 			if(pointer->key == key) {
 				indices[index] = pointer->next;
@@ -127,7 +121,9 @@ template <class T1, class T2> class HashMap
 			while(pointer->next != NULL) {
 	
 				if(pointer->next->key == key) {
+					List<T1, T2> *temp = pointer->next;
 					pointer->next = pointer->next->next;
+					delete(temp);
 					return;
 				}
 
